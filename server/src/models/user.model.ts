@@ -22,6 +22,7 @@ export interface IUser extends Document {
   isVerified: boolean;
   createdAt: Date;
   partnerPreferences?: PartnerPreferences;
+  blockedUsers?: string[];
 }
 
 const UserSchema = new Schema<IUser>(
@@ -55,6 +56,13 @@ const UserSchema = new Schema<IUser>(
       location: String,
       religion: String,
     },
+    blockedUsers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+
     isVerified: {
       type: Boolean,
       default: false,
